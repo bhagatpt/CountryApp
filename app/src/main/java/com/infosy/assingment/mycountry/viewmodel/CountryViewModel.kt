@@ -6,14 +6,11 @@ import com.infosy.assingment.mycountry.model.Country
 import com.infosy.assingment.mycountry.repository.CountryRepository
 
 class CountryViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
     var countries: MutableLiveData<Country?>? = null
         private set
     private val movieModel: CountryRepository
     fun init() {
         if (countries != null) {
-            // ViewModel is created per Fragment so
-            // we know the userId won't change
             return
         }
         countries = movieModel.movies

@@ -55,6 +55,5 @@ class CountryAdapter(var context: Context, var countryDetailsList: List<CountryD
         internal val titleTxt: TextView = itemView.findViewById(R.id.titleTxt)
         internal val descTxt: TextView = itemView.findViewById(R.id.descTxt)
         internal val cardView: CardView = itemView.findViewById(R.id.cardView)
-
     }
 }

@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 
 class CheckConnection(var activity: Activity) {
-    private val TAG = "CheckConnection"
 
     companion object {
         fun haveNetworkConnection(context: Context): Boolean {

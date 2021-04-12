@@ -12,21 +12,19 @@ class CountryRepository {
     var apiInterface: ApiNetworkCall? = null
     val movies: MutableLiveData<Country?>
         get() {
-            val refferAndInvitePojoMutableLiveData = MutableLiveData<Country?>()
+            val referAndInvitePoloMutableLiveData = MutableLiveData<Country?>()
             apiInterface = clientAuthentication!!.create<ApiNetworkCall>(ApiNetworkCall::class.java)
             if (apiInterface != null) {
                 var call = apiInterface!!.countryDetails
                 call!!.enqueue(object : Callback<Country?> {
                     override fun onResponse(call: Call<Country?>, response: Response<Country?>) {
                         if (response.body() != null) {
-                            refferAndInvitePojoMutableLiveData.setValue(response.body())
+                            referAndInvitePoloMutableLiveData.setValue(response.body())
                         }
                     }
-
                     override fun onFailure(call: Call<Country?>, t: Throwable) {}
                 })
-
             }
-            return refferAndInvitePojoMutableLiveData
+            return referAndInvitePoloMutableLiveData
         }
 }
