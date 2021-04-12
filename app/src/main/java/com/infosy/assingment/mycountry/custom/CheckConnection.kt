@@ -1,37 +1,23 @@
-package com.infosy.assingment.mycountry.custom;
+package com.infosy.assingment.mycountry.custom
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.app.Activity
+import android.content.Context
+import android.net.ConnectivityManager
 
+class CheckConnection(var activity: Activity) {
+    private val TAG = "CheckConnection"
 
-public class CheckConnection {
-
-    Activity activity;
-    private String TAG = "CheckConnection";
-
-    public CheckConnection(Activity activity) {
-        this.activity = activity;
-    }
-
-    public static boolean haveNetworkConnection(Context context) {
-        boolean conntected = false;
-
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-
-        if (netInfo != null) {
-            if (netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                conntected = true;
-            } else if (netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                conntected = true;
-            } else {
-                conntected = false;
+    companion object {
+        fun haveNetworkConnection(context: Context): Boolean {
+            var conntected = false
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val netInfo = cm.activeNetworkInfo
+            if (netInfo != null) {
+                conntected = if (netInfo.type == ConnectivityManager.TYPE_WIFI) {
+                    true
+                } else netInfo.type == ConnectivityManager.TYPE_MOBILE
             }
+            return conntected
         }
-        return conntected;
     }
 }

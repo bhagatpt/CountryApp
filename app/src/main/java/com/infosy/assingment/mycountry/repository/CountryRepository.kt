@@ -1,51 +1,32 @@
-package com.infosy.assingment.mycountry.repository;
+package com.infosy.assingment.mycountry.repository
 
+import androidx.lifecycle.MutableLiveData
+import com.infosy.assingment.mycountry.model.Country
+import com.infosy.assingment.mycountry.network.ApiClient.clientAuthentication
+import com.infosy.assingment.mycountry.network.ApiNetworkCall
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
+class CountryRepository {
+    var apiInterface: ApiNetworkCall? = null
+    val movies: MutableLiveData<Country?>
+        get() {
+            val refferAndInvitePojoMutableLiveData = MutableLiveData<Country?>()
+            apiInterface = clientAuthentication!!.create<ApiNetworkCall>(ApiNetworkCall::class.java)
+            if (apiInterface != null) {
+                var call = apiInterface!!.countryDetails
+                call!!.enqueue(object : Callback<Country?> {
+                    override fun onResponse(call: Call<Country?>, response: Response<Country?>) {
+                        if (response.body() != null) {
+                            refferAndInvitePojoMutableLiveData.setValue(response.body())
+                        }
+                    }
 
-import android.app.ProgressDialog;
-import android.content.Context;
+                    override fun onFailure(call: Call<Country?>, t: Throwable) {}
+                })
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.infosy.assingment.mycountry.model.Country;
-import com.infosy.assingment.mycountry.model.CountryDetails;
-import com.infosy.assingment.mycountry.network.ApiClient;
-import com.infosy.assingment.mycountry.network.ApiNetworkCall;
-
-import java.util.ConcurrentModificationException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
-
-public class CountryRepository {
-
-    private ApiNetworkCall apiInterface;
-
-    public CountryRepository() {
-    }
-
-    public MutableLiveData<Country> getMovies() {
-        final MutableLiveData<Country> refferAndInvitePojoMutableLiveData = new MutableLiveData<>();
-
-        apiInterface = ApiClient.getClientAuthentication().create(ApiNetworkCall.class);
-        Call<Country> call = apiInterface.getCountryDetails();
-        call.enqueue(new Callback<Country>() {
-            @Override
-            public void onResponse(Call<Country> call, Response<Country> response) {
-                if(response.body()!=null)
-                {
-                    refferAndInvitePojoMutableLiveData.setValue(response.body());
-                }
             }
-
-            @Override
-            public void onFailure(Call<Country> call, Throwable t) {
-            }
-        });
-
-        return refferAndInvitePojoMutableLiveData;
-    }
+            return refferAndInvitePojoMutableLiveData
+        }
 }
