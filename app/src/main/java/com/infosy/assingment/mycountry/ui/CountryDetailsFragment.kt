@@ -29,7 +29,7 @@ class CountryDetailsFragment : Fragment(), OnRefreshListener {
     private val movieList: MutableList<CountryDetails> = ArrayList()
     private var recyclerView: RecyclerView? = null
     private var mAdapter: CountryAdapter? = null
-    private var actionBar: ActionBar? = null
+    private val actionBar: ActionBar? = (activity as AppCompatActivity?)!!.supportActionBar
     private var rootView: View? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,15 +40,16 @@ class CountryDetailsFragment : Fragment(), OnRefreshListener {
     }
 
     private fun initViews() {
-        actionBar = (activity as AppCompatActivity?)!!.supportActionBar
-        recyclerView = rootView!!.findViewById<View>(R.id.recycler_view) as RecyclerView
-        mAdapter = CountryAdapter(activity!!, movieList)
-        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        recyclerView!!.layoutManager = mLayoutManager
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.adapter = mAdapter
-        mSwipeRefreshLayout = rootView!!.findViewById<View>(R.id.storageSwipeRefreshLayout) as SwipeRefreshLayout
-        mSwipeRefreshLayout!!.setOnRefreshListener(this)
+        if(rootView!=null) {
+            recyclerView = rootView!!.findViewById<View>(R.id.recycler_view) as RecyclerView
+            mAdapter = CountryAdapter(activity!!, movieList)
+            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+            recyclerView!!.layoutManager = mLayoutManager
+            recyclerView!!.itemAnimator = DefaultItemAnimator()
+            recyclerView!!.adapter = mAdapter
+            mSwipeRefreshLayout = rootView!!.findViewById<View>(R.id.storageSwipeRefreshLayout) as SwipeRefreshLayout
+            mSwipeRefreshLayout!!.setOnRefreshListener(this)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
