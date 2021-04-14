@@ -7,7 +7,6 @@ import com.infosy.assingment.mycountry.repository.CountryRepository
 
 class CountryViewModel : ViewModel() {
     var countries: MutableLiveData<Country?>? = null
-        private set
     private val movieModel: CountryRepository = CountryRepository()
     fun init() {
         if (countries != null) {
