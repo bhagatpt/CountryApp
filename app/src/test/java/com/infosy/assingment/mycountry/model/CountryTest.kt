@@ -7,6 +7,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import java.util.*
+import kotlin.collections.ArrayList
 
 public class CountryTest {
 
@@ -14,10 +15,10 @@ public class CountryTest {
     private val countryRowsList: List<CountryDetails> = ArrayList<CountryDetails>()
 
     @Mock
-    var country: Country? = null
+    var country: Country? = Country()
 
     @Mock
-    var countryDetails: List<CountryDetails>? = null
+    var countryDetails: List<CountryDetails>? = ArrayList<CountryDetails>()
 
     @Before
     @Throws(Exception::class)
@@ -30,13 +31,13 @@ public class CountryTest {
     @Test
     fun testCountryTitle() {
         Mockito.`when`<Any>(country?.title).thenReturn(title)
-        Assert.assertEquals("testing title", country?.title)
+        Assert.assertEquals("Testing Title", country?.title)
     }
 
     @Test
     fun testCountryDetails() {
-        Mockito.`when`<Any>(country?.rows).thenReturn(countryDetails)
-        Assert.assertEquals(ArrayList<Any>(), country?.rows)
+        Mockito.`when`<Any>(country?.rows).thenReturn(countryRowsList)
+        Assert.assertEquals(ArrayList<CountryDetails>(), country?.rows)
     }
 
     @Test
@@ -47,7 +48,7 @@ public class CountryTest {
 
     @Test
     fun testCountryDetailsIncorrect() {
-        Mockito.`when`<Any>(country?.rows).thenReturn(countryDetails)
-        Assert.assertNotEquals(ArrayList<Any>(), country?.rows)
+        Mockito.`when`<Any>(country?.rows).thenReturn(countryRowsList)
+        Assert.assertNotEquals(" ddf", country?.rows)
     }
 }

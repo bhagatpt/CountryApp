@@ -8,6 +8,8 @@ class Country {
     @Expose
     var title: String? = null
 
+
+
     @SerializedName("rows")
     @Expose
     var rows: List<CountryDetails>? = null

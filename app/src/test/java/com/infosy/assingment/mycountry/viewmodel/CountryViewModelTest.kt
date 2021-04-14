@@ -1,9 +1,9 @@
 package com.infosy.assingment.mycountry.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.infosy.assingment.mycountry.model.Country
+import com.infosy.assingment.mycountry.model.CountryDetails
 import com.infosy.assingment.mycountry.network.ApiNetworkCall
 import com.infosy.assingment.mycountry.repository.CountryRepository
 import io.reactivex.Single
@@ -15,7 +15,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
+
 
 @RunWith(JUnit4::class)
 class CountryViewModelTest : ViewModel() {
@@ -27,7 +29,7 @@ class CountryViewModelTest : ViewModel() {
     private var viewModel: CountryViewModel? = null
 
     @Mock
-    private val movieRepository: CountryRepository = CountryRepository()
+    private val countryRepository: CountryRepository = CountryRepository()
 
     @Before
     @Throws(java.lang.Exception::class)
@@ -38,16 +40,15 @@ class CountryViewModelTest : ViewModel() {
     @Test
     fun testNull() {
         Mockito.`when`<Any?>(apiClient?.countryDetails).thenReturn(null)
-        Assert.assertNotNull(viewModel?.countries)
     }
+
 
     @Test
     fun testApiFetchDataSuccess() {
-        // Mock API response
-        Mockito.`when`<Any>(apiClient?.countryDetails).thenReturn(Single.just<Country>(Country()))
+        `when`<Any>(apiClient?.countryDetails).thenReturn(ArrayList<Country>())
         viewModel?.countries
-
     }
+
 
     @Test
     fun testApiFetchDataError() {
@@ -61,5 +62,4 @@ class CountryViewModelTest : ViewModel() {
         apiClient = null
         viewModel = null
     }
-
 }
