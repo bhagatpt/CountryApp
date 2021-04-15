@@ -25,13 +25,13 @@ import com.infosy.assingment.mycountry.viewmodel.CountryViewModel
 import java.util.*
 
 class CountryDetailsFragment : Fragment(), OnRefreshListener {
-    private var mViewModel: CountryViewModel? = null
+    var mViewModel: CountryViewModel? = null
     private val movieList: MutableList<CountryDetails> = ArrayList()
-    private var recyclerView: RecyclerView? = null
-    private var mAdapter: CountryAdapter? = null
-    private var actionBar: ActionBar? = null
-    private var rootView: View? = null
-    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    var recyclerView: RecyclerView? = null
+    var mAdapter: CountryAdapter? = null
+    var actionBar: ActionBar? = null
+    var rootView: View? = null
+    var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.country_details_fragment, container, false)
@@ -40,16 +40,15 @@ class CountryDetailsFragment : Fragment(), OnRefreshListener {
     }
 
     private fun initViews() {
-            actionBar=(activity as AppCompatActivity?)!!.supportActionBar
-            recyclerView = rootView!!.findViewById<View>(R.id.recycler_view) as RecyclerView
-            mAdapter = CountryAdapter(activity!!, movieList)
-            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-            recyclerView!!.layoutManager = mLayoutManager
-            recyclerView!!.itemAnimator = DefaultItemAnimator()
-            recyclerView!!.adapter = mAdapter
-            mSwipeRefreshLayout = rootView!!.findViewById<View>(R.id.storageSwipeRefreshLayout) as SwipeRefreshLayout
-            mSwipeRefreshLayout!!.setOnRefreshListener(this)
-
+        actionBar = (activity as AppCompatActivity?)!!.supportActionBar
+        recyclerView = rootView!!.findViewById<View>(R.id.recycler_view) as RecyclerView
+        mAdapter = CountryAdapter(activity!!, movieList)
+        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        recyclerView!!.layoutManager = mLayoutManager
+        recyclerView!!.itemAnimator = DefaultItemAnimator()
+        recyclerView!!.adapter = mAdapter
+        mSwipeRefreshLayout = rootView!!.findViewById<View>(R.id.storageSwipeRefreshLayout) as SwipeRefreshLayout
+        mSwipeRefreshLayout!!.setOnRefreshListener(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
