@@ -1,27 +1,13 @@
 package com.infosy.assingment.mycountry.ui
 
-import android.app.ProgressDialog
-import android.os.Bundle
-import android.os.Handler
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.infosy.assingment.mycountry.R
+import com.bumptech.glide.load.engine.Resource
 import com.infosy.assingment.mycountry.custom.CheckConnection
 import com.infosy.assingment.mycountry.model.Country
 import com.infosy.assingment.mycountry.model.CountryDetails
+import com.infosy.assingment.mycountry.repository.CountryRepository
 import com.infosy.assingment.mycountry.viewmodel.CountryViewModel
 import io.reactivex.Single
 import org.junit.*
@@ -29,46 +15,41 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import java.util.*
 
 @RunWith(JUnit4::class)
 class CountryDetailsFragmentTest : Fragment() {
-    @Mock
-    internal var mViewModel: CountryViewModel? = null
-    @Mock
-    internal val movieList: MutableList<CountryDetails> = ArrayList()
-    @Mock
-     var recyclerView: RecyclerView? = null
-    @Mock
-    internal var mAdapter: CountryAdapter? = null
-    @Mock
-    var actionBar: ActionBar? = null
-    @Mock
-     var rootView: View? = null
-    @Mock
-     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
 
+    private lateinit var countryViewModel: CountryViewModel
+    private lateinit var countryDetailsFragmentTest: CountryDetailsFragment
 
     @Mock
-   var countryDetailsFragmentTest: CountryDetailsFragment? = null
+    private lateinit var countryRepository: CountryRepository
 
+    private lateinit var observer: Observer<Resource<Country>>
 
     @Before
-    @Throws(java.lang.Exception::class)
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        countryDetailsFragmentTest = CountryDetailsFragment.newInstance()
+        countryViewModel = CountryViewModel()
+        countryDetailsFragmentTest = CountryDetailsFragment()
     }
 
     @Test
-    fun testFragmentViewModelSuccess() {
-        countryDetailsFragmentTest?.mViewModel?.countries
+    fun testWhenDataListSuccess() {
+        val list = mutableListOf<CountryDetails>()
+        list.add(0, CountryDetails("Country Title", "Country Description", ""))
+        lateinit var countryResponse: MutableLiveData<Resource<CountryDetails>>
+        countryViewModel.countries?.value = Country("Canada", list)
+       // `when`(countryViewModel.init()).thenReturn()
     }
 
-    @After
-    @Throws(Exception::class)
-    fun tearDown() {
-        countryDetailsFragmentTest = null
+    @Test
+    fun testWhenDataListError() {
+        val list = mutableListOf<CountryDetails>()
+        list.add(0, CountryDetails(" ", " ", ""))
+        lateinit var countryResponse: MutableLiveData<Resource<CountryDetails>>
     }
 }

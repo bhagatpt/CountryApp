@@ -15,10 +15,10 @@ class CountryRepository {
             val referAndInvitePoloMutableLiveData = MutableLiveData<Country?>()
             apiInterface = clientAuthentication?.create<ApiNetworkCall>(ApiNetworkCall::class.java)
             if (apiInterface != null) {
-                apiInterface!!.countryDetails?.enqueue(object : Callback<Country?> {
+                apiInterface?.countryDetails?.enqueue(object : Callback<Country?> {
                     override fun onResponse(call: Call<Country?>, response: Response<Country?>) {
                         if (response.body() != null) {
-                            referAndInvitePoloMutableLiveData.setValue(response.body())
+                            referAndInvitePoloMutableLiveData.value = response.body()
                         }
                     }
 

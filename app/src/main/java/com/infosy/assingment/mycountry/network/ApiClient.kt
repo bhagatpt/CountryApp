@@ -14,7 +14,6 @@ object ApiClient {
     private var retrofit: Retrofit? = null
     const val URL_BASE = "https://dl.dropboxusercontent.com" //Base URL
 
-    // .baseUrl(URL_BASE)
     val clientAuthentication: Retrofit?
         get() {
             val logging = HttpLoggingInterceptor()

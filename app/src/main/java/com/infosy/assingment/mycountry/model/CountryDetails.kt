@@ -15,4 +15,10 @@ class CountryDetails {
     @SerializedName("imageHref")
     @Expose
     var imageHref: String? = null
+
+    constructor(title: String?, description: String?, imageHref: String?) {
+        this.title = title
+        this.description = description
+        this.imageHref = imageHref
+    }
 }

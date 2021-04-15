@@ -8,7 +8,14 @@ class Country {
     @Expose
     var title: String? = null
 
+    constructor(){
 
+    }
+
+    constructor(title: String?, rows: List<CountryDetails>?) {
+        this.title = title
+        this.rows = rows
+    }
 
     @SerializedName("rows")
     @Expose
